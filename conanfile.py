@@ -48,6 +48,9 @@ class Open3dConan(ConanFile):
             """find_package(PCL 1.8 QUIET REQUIRED COMPONENTS common io features kdtree)""",
             """include(${CMAKE_BINARY_DIR}/../conanbuildinfo.cmake)
 conan_basic_setup()
+
+SET(EIGEN3_INCLUDE_DIRS "${CONAN_INCLUDE_DIRS_EIGEN}")
+MESSAGE(STATUS "Eigen: ${EIGEN3_FOUND} inc: ${EIGEN3_INCLUDE_DIRS}")
 SET(PCL_INCLUDE_DIRS "${CONAN_INCLUDE_DIRS_PCL}")
 SET(PCL_LIBRARY_DIRS "${CONAN_LIB_DIRS_PCL}")
 SET(PCL_LIBRARIES "${CONAN_LIBS_PCL}")
