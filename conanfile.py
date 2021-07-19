@@ -44,8 +44,9 @@ class Open3dConan(ConanFile):
 
     def build(self):
         teaserpp_source_dir = os.path.join(self.source_folder, self.source_subfolder)
+
         tools.replace_in_file(os.path.join(self.source_subfolder, "CMakeLists.txt"),
-            """find_package(PCL 1.8 QUIET REQUIRED COMPONENTS common io features kdtree)""",
+            """find_package(Eigen3 3.2 QUIET REQUIRED NO_MODULE)""",
             """include(${CMAKE_BINARY_DIR}/../conanbuildinfo.cmake)
 conan_basic_setup()
 
@@ -55,7 +56,11 @@ SET(PCL_INCLUDE_DIRS "${CONAN_INCLUDE_DIRS_PCL}")
 SET(PCL_LIBRARY_DIRS "${CONAN_LIB_DIRS_PCL}")
 SET(PCL_LIBRARIES "${CONAN_LIBS_PCL}")
 MESSAGE(STATUS "PCL: ${CONAN_LIB_DIRS_PCL} inc: ${CONAN_INCLUDE_DIRS_PCL} lib: ${PCL_LIBRARIES}")
-find_package(PCL QUIET REQUIRED COMPONENTS common io features kdtree)""")
+find_package(Eigen3 QUIET REQUIRED NO_MODULE)""")
+
+        tools.replace_in_file(os.path.join(self.source_subfolder, "CMakeLists.txt"),
+            """find_package(PCL 1.8 QUIET REQUIRED COMPONENTS common io features kdtree)""",
+            """find_package(PCL QUIET REQUIRED COMPONENTS common io features kdtree)""")
 
         cmake = CMake(self)
 
